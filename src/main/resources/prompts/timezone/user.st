@@ -1,0 +1,1 @@
+Query the timezone used by the region： {region}

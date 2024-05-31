@@ -1,0 +1,118 @@
+= AI-based Command Line Tool
+
+== Feature
+
+1. Chat
+2. Translate
+3. File Chat
+4. Time Convert
+5. Improve Writing
+
+== Env
+
+* `OPENAI_API_KEY`: OpenAi or LLM model key with same format API.
+* `OPENAI_BASE_URL`: The BaseUrl of Api Endpoint.
+* `OPENAI_MODEL`: LLM model name.
+* `SYSTEM_PROMPT_PATH`: Chat system prompt file path.
+
+.deepseek example
+[,bash]
+----
+export OPENAI_API_KEY=$DEEP_SEEK
+export OPENAI_BASE_URL=https://api.deepseek.com
+export OPENAI_MODEL=deepseek-chat
+export CODER_MODEL=deepseek-coder
+----
+
+== Alias
+
+..bashrc
+[,bash]
+----
+alias pet="java -jar ~/.tools/pet.jar"
+----
+
+== Command
+
+.pet
+[,bash]
+----
+Usage: pet [-hV] [COMMAND]
+pet
+  -h, --help      Show this help message and exit.
+  -V, --version   Print version information and exit.
+Commands:
+  chat, ct, ask        A chat cli tool.
+  translate, ts        AI Translation Tool
+  chat config, cf      About Chat Command config.
+  time convert, tc     Convert dates and timestamps between each other.
+  improve writing, iw  Improve Writing.
+----
+
+.pet chat
+[, bash]
+----
+Usage: pet chat [-chV] [-f=<file>] <text>
+A chat cli tool.
+      <text>
+  -c, --coder         The coder model that chat using.
+  -f, --file=<file>   The file content that chat based on.
+  -h, --help          Show this help message and exit.
+  -V, --version       Print version information and exit.
+----
+
+.pet chat config
+[,bash]
+----
+Usage: pet chat config [-hV] [-sp] [-rsp=<systemPromptPath>
+]
+About Chat Command config.
+  -h, --help                 Show this help message and exit.
+      -rsp, --reset-system-prompt=<systemPromptPath>
+                             Rest system prompt file path, the best file type
+                               is string template. eg. xxx.st
+      -sp, --system-prompt   The currently used system prompt.
+  -V, --version              Print version information and exit.
+----
+
+.pet translate
+[,bash]
+----
+Usage: pet translate [-hV] [-l=<lang>] <text>
+Ai Translation Tool
+      <text>
+  -h, --help              Show this help message and exit.
+  -l, --language=<lang>   The translate target language.
+  -V, --version           Print version information and exit.
+----
+
+.pet time convert
+[,bash]
+----
+Usage: pet time convert [-hV] [-z=<timezone>] (-s=<time
+stamp> | -t=<datetime>)
+Convert dates and timestamps to and from each other.
+  -h, --help      Show this help message and exit.
+  -s, --timestamp=<timestamp>
+                  timestamp
+  -t, --date-time=<datetime>
+                  date time string, yyyy-MM-dd HH:mm:ss
+  -V, --version   Print version information and exit.
+  -z, --timezone=<timezone>
+                  timezone, eg. Asia/Shanghai
+----
+
+.pet improve writing
+[,bash]
+----
+Usage: pet improve writing [-hV] <text>
+Improve Writing.
+      <text>
+  -h, --help      Show this help message and exit.
+  -V, --version   Print version information and exit.
+----
+
+== Build
+* maven `mvn clean package`
+* https://docs.spring.io/spring-boot/reference/native-image/index.html[`GraalVM Native`]
+

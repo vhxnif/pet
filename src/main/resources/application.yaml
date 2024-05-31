@@ -1,0 +1,21 @@
+logging:
+  level:
+    root: ERROR
+spring:
+  main:
+    webApplicationType: none
+    banner-mode: off
+  application:
+    name: pet
+  ai:
+    openai:
+      apiKey: ${OPENAI_API_KEY}
+      baseUrl: ${OPENAI_BASE_URL}
+      chat:
+        options:
+          model: ${OPENAI_MODEL}
+custom:
+  config:
+    chat:
+      systemPromptPath: ${SYSTEM_PROMPT_PATH}
+      coderModel: ${CODER_MODEL}
