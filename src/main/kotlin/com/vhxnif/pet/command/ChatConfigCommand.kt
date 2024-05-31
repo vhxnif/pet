@@ -1,6 +1,6 @@
-package com.vhxnif.ask.command
+package com.vhxnif.pet.command
 
-import com.vhxnif.ask.config.ChatCustomConfig
+import com.vhxnif.pet.config.ChatCustomConfig
 import org.springframework.core.io.FileSystemResource
 import org.springframework.stereotype.Component
 import picocli.CommandLine.Command

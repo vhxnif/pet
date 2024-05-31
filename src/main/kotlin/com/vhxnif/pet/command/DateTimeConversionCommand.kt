@@ -1,6 +1,6 @@
-package com.vhxnif.ask.command
+package com.vhxnif.pet.command
 
-import com.vhxnif.ask.service.TimeConversion
+import com.vhxnif.pet.service.TimeConversion
 import org.springframework.stereotype.Component
 import picocli.CommandLine.ArgGroup
 import picocli.CommandLine.Command

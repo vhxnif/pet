@@ -1,4 +1,4 @@
-package com.vhxnif.ask.service
+package com.vhxnif.pet.service
 
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.ai.chat.messages.UserMessage

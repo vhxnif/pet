@@ -1,4 +1,4 @@
-package com.vhxnif.ask.command
+package com.vhxnif.pet.command
 
 import org.springframework.stereotype.Component
 import picocli.CommandLine

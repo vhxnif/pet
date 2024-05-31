@@ -1,4 +1,4 @@
-package com.vhxnif.ask.config
+package com.vhxnif.pet.config
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean

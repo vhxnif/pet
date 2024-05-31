@@ -1,6 +1,6 @@
-package com.vhxnif.ask.config
+package com.vhxnif.pet.config
 
-import com.vhxnif.ask.command.*
+import com.vhxnif.pet.command.*
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

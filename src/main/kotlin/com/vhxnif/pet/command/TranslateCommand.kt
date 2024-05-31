@@ -1,7 +1,7 @@
-package com.vhxnif.ask.command
+package com.vhxnif.pet.command
 
-import com.vhxnif.ask.service.Translate
-import com.vhxnif.ask.util.print
+import com.vhxnif.pet.service.Translate
+import com.vhxnif.pet.util.print
 import org.springframework.stereotype.Component
 import picocli.CommandLine.*
 

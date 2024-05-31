@@ -1,4 +1,4 @@
-package com.vhxnif.ask
+package com.vhxnif.pet
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication

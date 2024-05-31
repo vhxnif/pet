@@ -1,11 +1,10 @@
-package com.vhxnif.ask
+package com.vhxnif.pet
 
-import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 
 @SpringBootTest
-class AskApplicationTests {
+class ApplicationTests {
 
 	// @Test
 	fun contextLoads() {

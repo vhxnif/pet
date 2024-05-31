@@ -1,7 +1,7 @@
-package com.vhxnif.ask.command
+package com.vhxnif.pet.command
 
-import com.vhxnif.ask.service.ImproveWriting
-import com.vhxnif.ask.util.print
+import com.vhxnif.pet.service.ImproveWriting
+import com.vhxnif.pet.util.print
 import org.springframework.stereotype.Component
 import picocli.CommandLine.Command
 import picocli.CommandLine.Parameters

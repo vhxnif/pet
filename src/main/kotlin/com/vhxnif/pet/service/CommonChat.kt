@@ -1,6 +1,6 @@
-package com.vhxnif.ask.service
+package com.vhxnif.pet.service
 
-import com.vhxnif.ask.config.ChatCustomConfig
+import com.vhxnif.pet.config.ChatCustomConfig
 import org.springframework.ai.chat.messages.Message
 import org.springframework.ai.chat.messages.UserMessage
 import org.springframework.ai.chat.prompt.Prompt

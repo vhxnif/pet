@@ -1,4 +1,4 @@
-package com.vhxnif.ask.config
+package com.vhxnif.pet.config
 
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.core.io.Resource
