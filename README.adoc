@@ -81,7 +81,7 @@ AI Translation Tool
   -f, --file=<file>       The file needs to be translated
   -h, --help              Show this help message and exit.
   -l, --language=<lang>   The translate target language.
-  -s, --with-source       Printed with source text
+  -s, --without-source    Printed without source text.
   -V, --version           Print version information and exit.
 ----
 

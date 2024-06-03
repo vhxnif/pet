@@ -30,8 +30,8 @@ class TranslateCommand(
     @Option(names = ["-l", "--language"], description = ["The translate target language."], defaultValue = "zh")
     lateinit var lang: String
 
-    @Option(names = ["-s", "--with-source"], description = ["Printed with source text"])
-    var printSourceText: Boolean = false
+    @Option(names = ["-s", "--without-source"], description = ["Printed without source text."])
+    var printIgnoreSourceText: Boolean = false
 
     class Exclusive {
         @Option(names = ["-f", "--file"], description = ["The file needs to be translated"])
@@ -43,7 +43,7 @@ class TranslateCommand(
 
     override fun run() {
         val printSourceText = { s: String ->
-            if (printSourceText) {
+            if (!printIgnoreSourceText) {
                 println(s)
             }
         }
@@ -56,9 +56,11 @@ class TranslateCommand(
                 .map { doc -> doc.content }
                 .filter { c -> c.isNotBlank() }
             else -> listOf(exclusive.text!!)
+        }.map {
+            it to translate.translate(lang, it)
         }.onEach {
-            printSourceText(it)
-            translate.translate(lang, it).print()
+            printSourceText(it.first)
+            it.second.doOnComplete { println() }.print()
         }
     }
 
