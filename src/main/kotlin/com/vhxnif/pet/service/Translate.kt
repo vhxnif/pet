@@ -33,16 +33,4 @@ class Translate(
             ))
         ).map { it.result.output.content }
     }
-
-
-    fun ts(lang: String, text: String): String {
-        return client.call(
-            Prompt(listOf(
-                SystemMessage(systemPrompt),
-                PromptTemplate(userPrompt).createMessage(mutableMapOf<String, Any>(
-                    "to" to lang, "text" to text
-                ))
-            ))
-        ).result.output.content
-    }
 }
