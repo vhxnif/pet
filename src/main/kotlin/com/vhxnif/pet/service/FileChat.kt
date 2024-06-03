@@ -1,8 +1,8 @@
 package com.vhxnif.pet.service
 
+import org.springframework.ai.chat.StreamingChatClient
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.ai.chat.prompt.PromptTemplate
-import org.springframework.ai.openai.OpenAiChatClient
 import org.springframework.ai.reader.tika.TikaDocumentReader
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.FileSystemResource
@@ -17,7 +17,7 @@ import reactor.core.publisher.Flux
  */
 @Component
 class FileChat(
-    private val chatClient: OpenAiChatClient,
+    private val chatClient: StreamingChatClient,
     @Value("classpath:/prompts/file/user.st")
     private val userPrompt: Resource
 ) {

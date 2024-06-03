@@ -1,9 +1,9 @@
 package com.vhxnif.pet.service
 
+import org.springframework.ai.chat.StreamingChatClient
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.ai.chat.messages.UserMessage
 import org.springframework.ai.chat.prompt.Prompt
-import org.springframework.ai.openai.OpenAiChatClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
@@ -18,7 +18,7 @@ import reactor.core.publisher.Flux
 class ImproveWriting (
     @Value("classpath:/prompts/improveWriting/system.st")
     private val systemPrompt: Resource,
-    private val chatClient: OpenAiChatClient,
+    private val chatClient: StreamingChatClient,
 ) {
 
     fun improve(input: String) : Flux<String> {

@@ -1,9 +1,9 @@
 package com.vhxnif.pet.service
 
+import org.springframework.ai.chat.ChatClient
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.ai.chat.prompt.PromptTemplate
-import org.springframework.ai.openai.OpenAiChatClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter
  */
 @Component
 class TimeConversion(
-    private val openAiChatClient: OpenAiChatClient,
+    private val chatClient: ChatClient,
     @Value("classpath:/prompts/timezone/system.st")
     private val systemPrompt: Resource,
     @Value("classpath:/prompts/timezone/user.st")
@@ -68,7 +68,7 @@ class TimeConversion(
     }
 
     private fun getTimezone(region: String): ZoneId {
-        val timezone = openAiChatClient.call(Prompt(listOf(
+        val timezone = chatClient.call(Prompt(listOf(
             SystemMessage(systemPrompt),
             PromptTemplate(userPrompt).createMessage(mutableMapOf<String, Any>("region" to region))
         ))).result.output.content

@@ -1,9 +1,9 @@
 package com.vhxnif.pet.service
 
+import org.springframework.ai.chat.StreamingChatClient
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.ai.chat.prompt.PromptTemplate
-import org.springframework.ai.openai.OpenAiChatClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
@@ -20,7 +20,7 @@ class Translate(
     private val systemPrompt: Resource,
     @Value("classpath:/prompts/translate/user.st")
     private val userPrompt: Resource,
-    private val client: OpenAiChatClient
+    private val client: StreamingChatClient
 ) {
 
     fun translate(lang: String, text: String): Flux<String> {

@@ -1,10 +1,10 @@
 package com.vhxnif.pet.service
 
 import com.vhxnif.pet.config.ChatCustomConfig
+import org.springframework.ai.chat.StreamingChatClient
 import org.springframework.ai.chat.messages.Message
 import org.springframework.ai.chat.messages.UserMessage
 import org.springframework.ai.chat.prompt.Prompt
-import org.springframework.ai.openai.OpenAiChatClient
 import org.springframework.ai.openai.OpenAiChatOptions
 import org.springframework.core.io.FileSystemResource
 import org.springframework.stereotype.Component
@@ -17,7 +17,7 @@ import reactor.core.publisher.Flux
  */
 @Component
 class CommonChat(
-    private val chatClient: OpenAiChatClient,
+    private val chatClient: StreamingChatClient,
     private val chatCustomConfig: ChatCustomConfig,
 ) {
 
