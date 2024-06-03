@@ -68,9 +68,6 @@ Usage: pet chat config [-hV] [-sp] [-rsp=<systemPromptPath>
 ]
 About Chat Command config.
   -h, --help                 Show this help message and exit.
-      -rsp, --reset-system-prompt=<systemPromptPath>
-                             Rest system prompt file path, the best file type
-                               is string template. eg. xxx.st
       -sp, --system-prompt   The currently used system prompt.
   -V, --version              Print version information and exit.
 ----
@@ -78,11 +75,13 @@ About Chat Command config.
 .pet translate
 [,bash]
 ----
-Usage: pet translate [-hV] [-l=<lang>] <text>
-Ai Translation Tool
+Usage: pet translate [-hsV] [-l=<lang>] (-f=<file> | <text>)
+AI Translation Tool
       <text>
+  -f, --file=<file>       The file needs to be translated
   -h, --help              Show this help message and exit.
   -l, --language=<lang>   The translate target language.
+  -s, --with-source       Printed with source text
   -V, --version           Print version information and exit.
 ----
 
