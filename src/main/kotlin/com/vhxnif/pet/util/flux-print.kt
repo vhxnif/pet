@@ -8,7 +8,14 @@ import reactor.core.publisher.Flux
  * @since 2024-05-30
  */
 
-fun <T> Flux<T>.print() {
-    this.subscribe { print(it) }
-    this.blockLast()
+fun Flux<String>.print() {
+    this.doOnNext { print(it) }.blockLast()
+}
+
+fun Flux<String>.println() {
+    this.doOnNext { println(it) }.blockLast()
+}
+
+fun Sequence<Flux<String>>.print() {
+    this.reduce { acc, flux -> acc.concatWith(flux.doFirst { println() })  }.doOnNext { print(it) }.blockLast()
 }

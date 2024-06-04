@@ -42,26 +42,19 @@ class TranslateCommand(
     }
 
     override fun run() {
-        val printSourceText = { s: String ->
-            if (!printIgnoreSourceText) {
-                println(s)
-            }
-        }
         when {
             exclusive.file != null -> TranslateTextSplitter()
-                .apply(
-                    TikaDocumentReader(FileSystemResource(exclusive.file!!))
-                        .get()
-                )
+                .apply(TikaDocumentReader(FileSystemResource(exclusive.file!!)).get())
                 .map { doc -> doc.content }
                 .filter { c -> c.isNotBlank() }
             else -> listOf(exclusive.text!!)
-        }.map {
-            it to translate.translate(lang, it)
-        }.onEach {
-            printSourceText(it.first)
-            it.second.doOnComplete { println() }.print()
-        }
+        }.asSequence().map {
+            translate.translate(lang, it).doFirst {
+                if(!printIgnoreSourceText) {
+                    println(it)
+                }
+            }
+        }.print()
     }
 
 }
