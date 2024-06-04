@@ -1,7 +1,9 @@
 package com.vhxnif.pet.config
 
-import com.vhxnif.pet.command.*
+import com.vhxnif.pet.command.AppCommand
+import com.vhxnif.pet.config.annotation.Sword
 import org.springframework.boot.CommandLineRunner
+import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import picocli.CommandLine
@@ -14,21 +16,15 @@ import picocli.CommandLine.IFactory
  */
 @Configuration
 class CommandLineConfig(
+    private val applicationContext: ApplicationContext,
     private val appCommand: AppCommand,
-    private val chatCommand: ChatCommand,
-    private val translateCommand: TranslateCommand,
-    private val chatConfigCommand: ChatConfigCommand,
-    private val timeConversionCommand: DateTimeConversionCommand,
-    private val improveWritingCommand: ImproveWritingCommand,
 ) {
 
     @Bean
-    fun command(factory: IFactory) = CommandLine(appCommand, factory)
-        .addSubcommand(chatCommand)
-        .addSubcommand(translateCommand)
-        .addSubcommand(chatConfigCommand)
-        .addSubcommand(timeConversionCommand)
-        .addSubcommand(improveWritingCommand)
+    fun command(factory: IFactory) = CommandLine(appCommand, factory).apply {
+        applicationContext.getBeansWithAnnotation(Sword::class.java)
+            .forEach { (_, u) ->  addSubcommand(u)}
+    }
 
     @Bean
     fun runner(commandLine: CommandLine) = CommandLineRunner { commandLine.execute(*it) }

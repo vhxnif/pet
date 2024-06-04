@@ -1,8 +1,8 @@
 package com.vhxnif.pet.command
 
+import com.vhxnif.pet.config.annotation.Sword
 import com.vhxnif.pet.service.ImproveWriting
 import com.vhxnif.pet.util.print
-import org.springframework.stereotype.Component
 import picocli.CommandLine.Command
 import picocli.CommandLine.Parameters
 
@@ -11,7 +11,7 @@ import picocli.CommandLine.Parameters
  * @author xiaochen.zhang
  * @since 2024-05-31
  */
-@Component
+@Sword
 @Command(
     name = "improve writing",
     aliases = ["iw"],

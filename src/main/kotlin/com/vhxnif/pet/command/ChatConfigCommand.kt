@@ -1,7 +1,7 @@
 package com.vhxnif.pet.command
 
 import com.vhxnif.pet.config.ChatCustomConfig
-import org.springframework.stereotype.Component
+import com.vhxnif.pet.config.annotation.Sword
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 
@@ -10,7 +10,7 @@ import picocli.CommandLine.Option
  * @author xiaochen.zhang
  * @since 2024-05-30
  */
-@Component
+@Sword
 @Command(
     name = "chat config",
     aliases = ["cf"],

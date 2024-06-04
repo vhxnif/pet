@@ -1,11 +1,11 @@
 package com.vhxnif.pet.command
 
+import com.vhxnif.pet.config.annotation.Sword
 import com.vhxnif.pet.service.Translate
 import com.vhxnif.pet.transformer.TranslateTextSplitter
 import com.vhxnif.pet.util.print
 import org.springframework.ai.reader.tika.TikaDocumentReader
 import org.springframework.core.io.FileSystemResource
-import org.springframework.stereotype.Component
 import picocli.CommandLine.*
 
 /**
@@ -13,7 +13,7 @@ import picocli.CommandLine.*
  * @author xiaochen.zhang
  * @since 2024-05-24
  */
-@Component
+@Sword
 @Command(
     name = "translate",
     aliases = ["ts"],

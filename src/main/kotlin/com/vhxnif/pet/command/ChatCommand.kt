@@ -1,9 +1,9 @@
 package com.vhxnif.pet.command
 
+import com.vhxnif.pet.config.annotation.Sword
 import com.vhxnif.pet.service.CommonChat
 import com.vhxnif.pet.service.FileChat
 import com.vhxnif.pet.util.print
-import org.springframework.stereotype.Component
 import picocli.CommandLine.*
 
 /**
@@ -11,7 +11,7 @@ import picocli.CommandLine.*
  * @author xiaochen.zhang
  * @since 2024-05-30
  */
-@Component
+@Sword
 @Command(
     name = "chat",
     aliases = ["ct", "ask"],

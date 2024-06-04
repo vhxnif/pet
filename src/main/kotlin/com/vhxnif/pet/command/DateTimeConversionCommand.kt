@@ -1,17 +1,15 @@
 package com.vhxnif.pet.command
 
+import com.vhxnif.pet.config.annotation.Sword
 import com.vhxnif.pet.service.TimeConversion
-import org.springframework.stereotype.Component
-import picocli.CommandLine.ArgGroup
-import picocli.CommandLine.Command
-import picocli.CommandLine.Option
+import picocli.CommandLine.*
 
 /**
  *
  * @author xiaochen.zhang
  * @since 2024-05-31
  */
-@Component
+@Sword
 @Command(name = "time convert", aliases = ["tc"], description = ["Convert dates and timestamps between each other."])
 class DateTimeConversionCommand(
     private val timeConversion: TimeConversion
