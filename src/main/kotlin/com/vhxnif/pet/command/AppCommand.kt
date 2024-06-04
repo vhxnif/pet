@@ -19,6 +19,6 @@ import picocli.CommandLine.Command
 )
 class AppCommand : Runnable {
     override fun run() {
-        println("All-powerful Pet!")
+        println("=^..^=")
     }
 }
