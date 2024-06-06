@@ -1,9 +1,10 @@
 package com.vhxnif.pet.service
 
+import com.vhxnif.pet.util.messages
+import com.vhxnif.pet.util.call
+import com.vhxnif.pet.util.systemMessage
+import com.vhxnif.pet.util.userMessage
 import org.springframework.ai.chat.StreamingChatClient
-import org.springframework.ai.chat.messages.SystemMessage
-import org.springframework.ai.chat.prompt.Prompt
-import org.springframework.ai.chat.prompt.PromptTemplate
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
@@ -24,12 +25,14 @@ class ImproveWriting (
 ) {
 
     fun improve(text: String) : Flux<String> {
-        return chatClient.stream(Prompt(
-            listOf(
-                SystemMessage(systemPrompt),
-                PromptTemplate(userPrompt).createMessage(mutableMapOf<String, Any>("text" to text))
+        return chatClient.call {
+            messages (
+                systemMessage(systemPrompt),
+                userMessage(userPrompt) {
+                    mutableMapOf("text" to text)
+                }
             )
-        )).map { it.result.output.content }
+        }
     }
 
 }

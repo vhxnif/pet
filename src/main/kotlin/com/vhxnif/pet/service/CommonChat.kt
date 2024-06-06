@@ -1,10 +1,11 @@
 package com.vhxnif.pet.service
 
 import com.vhxnif.pet.config.ChatCustomConfig
+import com.vhxnif.pet.util.prompt
+import com.vhxnif.pet.util.call
+import com.vhxnif.pet.util.matchRun
+import com.vhxnif.pet.util.userMessage
 import org.springframework.ai.chat.StreamingChatClient
-import org.springframework.ai.chat.messages.Message
-import org.springframework.ai.chat.messages.UserMessage
-import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.ai.openai.OpenAiChatOptions
 import org.springframework.core.io.FileSystemResource
 import org.springframework.stereotype.Component
@@ -22,17 +23,19 @@ class CommonChat(
 ) {
 
     fun say(text: String, coder: Boolean = false): Flux<String> {
-        val messages = mutableListOf<Message>()
-        chatCustomConfig.systemMessage()?.let {
-            messages.add(it)
+        return chatClient.call {
+            prompt {
+                options {
+                    (coder && chatCustomConfig.coderModel() != null).matchRun {
+                        OpenAiChatOptions.Builder().withModel(chatCustomConfig.coderModel()).build()
+                    }
+                }
+                messages(
+                    chatCustomConfig.systemMessage(),
+                    userMessage(text)
+                )
+            }
         }
-        messages.add(UserMessage(text))
-        return if (coder && chatCustomConfig.coderModel() != null) {
-            val options = OpenAiChatOptions.Builder().withModel(chatCustomConfig.coderModel()).build()
-            chatClient.stream(Prompt(messages, options))
-        } else {
-            chatClient.stream(Prompt(messages))
-        }.map { it.result.output.content }
     }
 
     fun systemPrompt(): String? {

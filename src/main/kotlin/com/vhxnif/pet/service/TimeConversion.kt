@@ -1,9 +1,10 @@
 package com.vhxnif.pet.service
 
+import com.vhxnif.pet.util.messages
+import com.vhxnif.pet.util.call
+import com.vhxnif.pet.util.systemMessage
+import com.vhxnif.pet.util.userMessage
 import org.springframework.ai.chat.ChatClient
-import org.springframework.ai.chat.messages.SystemMessage
-import org.springframework.ai.chat.prompt.Prompt
-import org.springframework.ai.chat.prompt.PromptTemplate
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
@@ -68,10 +69,14 @@ class TimeConversion(
     }
 
     private fun getTimezone(region: String): ZoneId {
-        val timezone = chatClient.call(Prompt(listOf(
-            SystemMessage(systemPrompt),
-            PromptTemplate(userPrompt).createMessage(mutableMapOf<String, Any>("region" to region))
-        ))).result.output.content
+        val timezone = chatClient.call {
+            messages(
+                systemMessage(systemPrompt),
+                userMessage(userPrompt) {
+                    mutableMapOf("region" to region)
+                }
+            )
+        }
         println("$region --> $timezone")
         return ZoneId.of(timezone)
     }

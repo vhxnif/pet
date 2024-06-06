@@ -1,8 +1,9 @@
 package com.vhxnif.pet.service
 
+import com.vhxnif.pet.util.messages
+import com.vhxnif.pet.util.userMessage
+import com.vhxnif.pet.util.call
 import org.springframework.ai.chat.StreamingChatClient
-import org.springframework.ai.chat.prompt.Prompt
-import org.springframework.ai.chat.prompt.PromptTemplate
 import org.springframework.ai.reader.tika.TikaDocumentReader
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.FileSystemResource
@@ -24,16 +25,13 @@ class FileChat(
 
     fun chat(text: String, filePath: String): Flux<String> {
         val doc = TikaDocumentReader(FileSystemResource(filePath)).get().joinToString { it.content }
-        return chatClient.stream(
-            Prompt(
-                listOf(
-                    PromptTemplate(userPrompt)
-                        .createMessage(
-                            mutableMapOf<String, Any>("text" to text, "doc" to doc)
-                        )
-                )
+        return chatClient.call {
+            messages(
+                userMessage(userPrompt) {
+                    mutableMapOf("text" to text, "doc" to doc)
+                }
             )
-        ).map { it.result.output.content }
+        }
     }
 
 }
