@@ -1,8 +1,8 @@
 package com.vhxnif.pet.service
 
+import com.vhxnif.pet.util.call
 import com.vhxnif.pet.util.messages
 import com.vhxnif.pet.util.userMessage
-import com.vhxnif.pet.util.call
 import org.springframework.ai.chat.StreamingChatClient
 import org.springframework.ai.reader.tika.TikaDocumentReader
 import org.springframework.beans.factory.annotation.Value
@@ -24,14 +24,17 @@ class FileChat(
 ) {
 
     fun chat(text: String, filePath: String): Flux<String> {
-        val doc = TikaDocumentReader(FileSystemResource(filePath)).get().joinToString { it.content }
         return chatClient.call {
             messages(
                 userMessage(userPrompt) {
-                    mutableMapOf("text" to text, "doc" to doc)
+                    mutableMapOf("text" to text, "doc" to doc(filePath))
                 }
             )
         }
+    }
+
+    fun doc(filePath: String) : String {
+        return TikaDocumentReader(FileSystemResource(filePath)).get().joinToString { it.content }
     }
 
 }
