@@ -7,7 +7,6 @@ import com.vhxnif.pet.util.matchRun
 import com.vhxnif.pet.util.userMessage
 import org.springframework.ai.chat.StreamingChatClient
 import org.springframework.ai.openai.OpenAiChatOptions
-import org.springframework.core.io.FileSystemResource
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
 
@@ -41,10 +40,5 @@ class CommonChat(
     fun systemPrompt(): String? {
         return chatCustomConfig.systemMessage()?.content
     }
-
-    fun resetSystemPrompt(systemPromptFilePath: String) {
-        chatCustomConfig.setSystemPrompt(FileSystemResource(systemPromptFilePath))
-    }
-
 
 }

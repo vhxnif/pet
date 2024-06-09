@@ -15,7 +15,7 @@
     <description>some cli command</description>
     <properties>
         <java.version>17</java.version>
-        <kotlin.version>1.9.23</kotlin.version>
+        <kotlin.version>2.0.0</kotlin.version>
         <spring-ai.version>0.8.1</spring-ai.version>
         <spring-shell.version>3.2.4</spring-shell.version>
     </properties>
