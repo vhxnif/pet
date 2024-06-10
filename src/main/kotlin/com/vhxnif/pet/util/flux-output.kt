@@ -20,13 +20,22 @@ fun Flux<String>.println() {
 }
 
 fun Sequence<Flux<String>>.print() {
-    this.reduce { acc, flux -> acc.concatWith(flux.doFirst { println() })  }.doOnNext { print(it) }.blockLast()
+    this.reduce { acc, flux -> acc.concatWith(flux.doFirst { println() }) }.doOnNext { print(it) }.blockLast()
 }
 
 fun Sequence<Flux<String>>.toFile(path: String) {
+    val pb = ProcessBar("processing", this.count().toLong())
     Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8).use { writer ->
-        this.reduce { acc, flux -> acc.concatWith(flux.doFirst { writer.newLine() }) }.doOnNext{ writer.write(it) }.blockLast()
+        this.reduce { acc, flux ->
+            acc.concatWith(
+                flux.doFirst { writer.newLine() }
+                    .doOnComplete { pb.partComplete() }
+            )
+        }.doOnNext {
+            writer.write(it)
+        }.doFinally {
+            pb.partComplete()
+        }.blockLast()
     }
 }
-
 
