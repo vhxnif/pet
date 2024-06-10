@@ -75,12 +75,14 @@ About Chat Command config.
 .pet translate
 [,bash]
 ----
-Usage: pet translate [-hsV] [-l=<lang>] (-f=<file> | <text>)
+Usage: pet translate [-hsV] [-l=<lang>] [-o=<outputPath>] (-f=<file> | <text>)
 AI Translation Tool
       <text>
   -f, --file=<file>       The file needs to be translated
   -h, --help              Show this help message and exit.
   -l, --language=<lang>   The translate target language.
+  -o, --output=<outputPath>
+                          Output file path.
   -s, --without-source    Printed without source text.
   -V, --version           Print version information and exit.
 ----
