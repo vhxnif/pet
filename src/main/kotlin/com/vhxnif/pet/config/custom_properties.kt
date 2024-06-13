@@ -8,11 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties
  * @since 2024-05-29
  */
 @ConfigurationProperties(prefix = "custom.config")
-class CustomProperties (
+class CustomProperties {
     var chat: ChatOption? = null
-)
+}
 
-class ChatOption (
-    var systemPromptPath: String? = null,
-    var coderModel: String? = null,
-)
+class ChatOption {
+    var systemPromptPath: String? = null
+    var coderModel: String? = null
+}
