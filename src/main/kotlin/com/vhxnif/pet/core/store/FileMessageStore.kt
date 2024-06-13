@@ -36,14 +36,10 @@ class FileMessageStore(
         }
         contextPath = configPath + File.separator + "pet" + File.separator + "message_context"
         Paths.get(contextPath).apply {
-            if (parent == null) {
-                error("path not exists. $this")
-            }
-            if (Files.notExists(parent)) {
-                Files.createDirectories(parent)
-            }
-            if (Files.notExists(this)) {
-                Files.createFile(this)
+            when {
+                parent == null -> error("path not exists. $this")
+                Files.notExists(parent) -> Files.createDirectories(parent)
+                Files.notExists(this) -> Files.createFile(this)
             }
         }
     }
