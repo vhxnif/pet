@@ -9,7 +9,7 @@ import org.springframework.ai.chat.prompt.PromptTemplate
 
 /**
  *
- * @author xiaochen.zhang
+ * @author chen
  * @since 2024-06-07
  */
 class TranslateTest : BaseTest() {
@@ -21,7 +21,7 @@ class TranslateTest : BaseTest() {
     @Test
     fun test_translate() {
 
-        val ts = spy(Translate(systemPrompt, userPrompt, streamingChatClient))
+        val ts = spy(Translate(systemPrompt, userPrompt, streamingAiChatClient))
         ts.translate(lang, text)
         vryStreamingPrompt {
             Prompt(

@@ -10,7 +10,7 @@ import org.springframework.ai.openai.OpenAiChatOptions
 
 /**
  *
- * @author xiaochen.zhang
+ * @author chen
  * @since 2024-06-07
  */
 class CommonChatTest : BaseTest() {
@@ -19,20 +19,20 @@ class CommonChatTest : BaseTest() {
 
     // --- common chat test ---
     private fun commonChat(f: (chat: CommonChat) -> Unit) {
-        val chat = CommonChat(streamingChatClient, chatCustomConfig, systemPrompt)
+        val chat = CommonChat(streamingAiChatClient, chatCustomConfig, systemPrompt)
         f(chat)
     }
 
     @Test
     fun test_common_chat_without_custom_config() = commonChat {
         it.say(text)
-        vryStreamingPrompt { Prompt(text) }
+        vryStreamingPrompt { Prompt(listOf(UserMessage(context), UserMessage(text))) }
     }
 
     @Test
     fun test_coding_common_chat_without_custom_config() = commonChat {
         it.say(text, true)
-        vryStreamingPrompt { Prompt(listOf(SystemMessage(systemPrompt), UserMessage(text))) }
+        vryStreamingPrompt { Prompt(listOf(SystemMessage(systemPrompt),UserMessage(context), UserMessage(text))) }
     }
 
     @Test
@@ -46,6 +46,7 @@ class CommonChatTest : BaseTest() {
             Prompt(
                 listOf(
                     systemMessage,
+                    UserMessage(context),
                     UserMessage(text),
                 ),
                 OpenAiChatOptions.Builder().withModel(coderModel).build()

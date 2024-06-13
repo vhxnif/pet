@@ -1,10 +1,6 @@
 package com.vhxnif.pet.service
 
-import com.vhxnif.pet.util.messages
-import com.vhxnif.pet.util.call
-import com.vhxnif.pet.util.systemMessage
-import com.vhxnif.pet.util.userMessage
-import org.springframework.ai.chat.StreamingChatClient
+import com.vhxnif.pet.core.StreamingAiChatClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
@@ -12,7 +8,7 @@ import reactor.core.publisher.Flux
 
 /**
  *
- * @author xiaochen.zhang
+ * @author chen
  * @since 2024-05-31
  */
 @Component
@@ -21,17 +17,15 @@ class ImproveWriting (
     private val systemPrompt: Resource,
     @Value("classpath:/prompts/improveWriting/user.st")
     private val userPrompt: Resource,
-    private val chatClient: StreamingChatClient,
+    private val chatClient: StreamingAiChatClient,
 ) {
 
     fun improve(text: String) : Flux<String> {
         return chatClient.call {
-            messages (
-                systemMessage(systemPrompt),
-                userMessage(userPrompt) {
-                    mutableMapOf("text" to text)
-                }
-            )
+            messages {
+                system(systemPrompt)
+                user(userPrompt, "text" to text)
+            }
         }
     }
 

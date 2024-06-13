@@ -17,7 +17,7 @@ class FileChatTest : BaseTest() {
     fun test_file_chat() {
         val doc = "this is a doc content"
         val userPrompt = prompt( "this is input: {text}, this is doc: {doc}")
-        val fileChat = spy(FileChat(streamingChatClient, userPrompt)).apply {
+        val fileChat = spy(FileChat(streamingAiChatClient, userPrompt)).apply {
             doReturn(doc).whenever(this).doc(any())
         }
         fileChat.chat(text, "/test.pdf")

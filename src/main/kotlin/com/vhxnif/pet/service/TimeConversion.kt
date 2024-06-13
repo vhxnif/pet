@@ -1,10 +1,6 @@
 package com.vhxnif.pet.service
 
-import com.vhxnif.pet.util.messages
-import com.vhxnif.pet.util.call
-import com.vhxnif.pet.util.systemMessage
-import com.vhxnif.pet.util.userMessage
-import org.springframework.ai.chat.ChatClient
+import com.vhxnif.pet.core.AiChatClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
@@ -15,12 +11,12 @@ import java.time.format.DateTimeFormatter
 
 /**
  *
- * @author xiaochen.zhang
+ * @author chen
  * @since 2024-05-31
  */
 @Component
 class TimeConversion(
-    private val chatClient: ChatClient,
+    private val chatClient: AiChatClient,
     @Value("classpath:/prompts/timezone/system.st")
     private val systemPrompt: Resource,
     @Value("classpath:/prompts/timezone/user.st")
@@ -60,7 +56,7 @@ class TimeConversion(
         }
     }
 
-    private fun fromTimestamp(timestamp : Long, zoneId: ZoneId) : ZonedDateTime {
+    private fun fromTimestamp(timestamp: Long, zoneId: ZoneId): ZonedDateTime {
         return ZonedDateTime.ofInstant(Instant.ofEpochSecond(timestamp), zoneId)
     }
 
@@ -70,12 +66,10 @@ class TimeConversion(
 
     private fun getTimezone(region: String): ZoneId {
         val timezone = chatClient.call {
-            messages(
-                systemMessage(systemPrompt),
-                userMessage(userPrompt) {
-                    mutableMapOf("region" to region)
-                }
-            )
+            messages {
+                system(systemPrompt)
+                user(userPrompt, "region" to region)
+            }
         }
         println("$region --> $timezone")
         return ZoneId.of(timezone)

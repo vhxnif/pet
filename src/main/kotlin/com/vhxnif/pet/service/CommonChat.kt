@@ -1,12 +1,7 @@
 package com.vhxnif.pet.service
 
 import com.vhxnif.pet.config.ChatCustomConfig
-import com.vhxnif.pet.util.prompt
-import com.vhxnif.pet.util.call
-import com.vhxnif.pet.util.matchRun
-import com.vhxnif.pet.util.userMessage
-import org.springframework.ai.chat.StreamingChatClient
-import org.springframework.ai.chat.messages.SystemMessage
+import com.vhxnif.pet.core.StreamingAiChatClient
 import org.springframework.ai.openai.OpenAiChatOptions
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.Resource
@@ -20,24 +15,24 @@ import reactor.core.publisher.Flux
  */
 @Component
 class CommonChat(
-    private val chatClient: StreamingChatClient,
+    private val chatClient: StreamingAiChatClient,
     private val chatCustomConfig: ChatCustomConfig,
     @Value("classpath:/prompts/coder/system.st")
     private val systemPrompt: Resource
 ) {
 
     fun say(text: String, coder: Boolean = false): Flux<String> {
-        return chatClient.call {
+        return chatClient.contextCall {
             prompt {
-                options {
-                    (coder && chatCustomConfig.coderModel() != null).matchRun {
-                        OpenAiChatOptions.Builder().withModel(chatCustomConfig.coderModel()).build()
+                option {
+                    chatCustomConfig.coderModel()?.let {
+                        if (coder) OpenAiChatOptions.Builder().withModel(it).build() else null
                     }
                 }
-                messages(
-                    if(coder) SystemMessage(systemPrompt) else chatCustomConfig.systemMessage(),
-                    userMessage(text)
-                )
+                message {
+                    if(coder) system(systemPrompt) else chatCustomConfig.systemMessage()?.let { system(it) }
+                    user(text)
+                }
             }
         }
     }

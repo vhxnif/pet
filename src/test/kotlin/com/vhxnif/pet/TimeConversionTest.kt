@@ -13,7 +13,7 @@ import org.springframework.ai.chat.prompt.PromptTemplate
 
 /**
  *
- * @author xiaochen.zhang
+ * @author chen
  * @since 2024-06-07
  */
 class TimeConversionTest : BaseTest() {
@@ -26,7 +26,7 @@ class TimeConversionTest : BaseTest() {
         doReturn(ChatResponse(listOf(Generation(regionTimezone)))).whenever(chatClient).call(any<Prompt>())
         val systemPrompt = prompt("this is system prompt")
         val userPrompt = prompt("this is user prompt : {region}")
-        TimeConversion(chatClient, systemPrompt, userPrompt).apply {
+        TimeConversion(aiChatClient, systemPrompt, userPrompt).apply {
             f()
         }
         vryPrompt {

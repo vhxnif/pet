@@ -1,5 +1,8 @@
 package com.vhxnif.pet.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import jakarta.annotation.PostConstruct
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -8,12 +11,19 @@ import org.springframework.core.io.FileSystemResource
 
 /**
  *
- * @author xiaochen.zhang
+ * @author chen
  * @since 2024-05-24
  */
 @Configuration
 @EnableConfigurationProperties(value = [CustomProperties::class])
-class AppConfig {
+class AppConfig(
+    val objectMapper: ObjectMapper
+) {
+
+    @PostConstruct
+    fun objectMapperConfig() {
+        objectMapper.registerKotlinModule()
+    }
 
     @Bean
     fun chatCustomConfig(customProperties: CustomProperties) : ChatCustomConfig {

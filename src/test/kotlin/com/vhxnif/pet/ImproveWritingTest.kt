@@ -8,7 +8,7 @@ import org.springframework.ai.chat.prompt.PromptTemplate
 
 /**
  *
- * @author xiaochen.zhang
+ * @author chen
  * @since 2024-06-07
  */
 class ImproveWritingTest : BaseTest(){
@@ -19,7 +19,7 @@ class ImproveWritingTest : BaseTest(){
     fun test_improve_writing() {
         val systemPrompt = "this is system prompt"
         val userPrompt = "this is content: {text}"
-        ImproveWriting(prompt(systemPrompt), prompt(userPrompt), streamingChatClient).improve(text)
+        ImproveWriting(prompt(systemPrompt), prompt(userPrompt), streamingAiChatClient).improve(text)
         vryStreamingPrompt {
             Prompt(listOf(
                 SystemMessage(systemPrompt),
