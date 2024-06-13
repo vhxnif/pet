@@ -24,17 +24,17 @@ fun Sequence<Flux<String>>.print() {
 }
 
 fun Sequence<Flux<String>>.toFile(path: String) {
-    val pb = ProcessBar("processing", this.count().toLong())
+    val pb = ProcessBar("processing", this.count())
     Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8).use { writer ->
         this.reduce { acc, flux ->
             acc.concatWith(
                 flux.doFirst { writer.newLine() }
-                    .doOnComplete { pb.partComplete() }
+                    .doOnComplete { pb.partCompleted() }
             )
         }.doOnNext {
             writer.write(it)
         }.doFinally {
-            pb.partComplete()
+            pb.partCompleted()
         }.blockLast()
     }
 }
