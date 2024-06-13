@@ -15,9 +15,11 @@ import org.springframework.ai.openai.OpenAiChatOptions
  */
 class CommonChatTest : BaseTest() {
 
+    private val systemPrompt = prompt("this is system prompt.")
+
     // --- common chat test ---
     private fun commonChat(f: (chat: CommonChat) -> Unit) {
-        val chat = CommonChat(streamingChatClient, chatCustomConfig)
+        val chat = CommonChat(streamingChatClient, chatCustomConfig, systemPrompt)
         f(chat)
     }
 
@@ -30,7 +32,7 @@ class CommonChatTest : BaseTest() {
     @Test
     fun test_coding_common_chat_without_custom_config() = commonChat {
         it.say(text, true)
-        vryStreamingPrompt { Prompt(text) }
+        vryStreamingPrompt { Prompt(listOf(SystemMessage(systemPrompt), UserMessage(text))) }
     }
 
     @Test
