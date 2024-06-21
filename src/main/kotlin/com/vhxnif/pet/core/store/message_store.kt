@@ -6,6 +6,7 @@ import org.springframework.ai.chat.messages.MessageType
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.ai.chat.messages.UserMessage
 import java.time.Instant
+import java.util.UUID
 
 /**
  *
@@ -23,22 +24,20 @@ data class ChatMessage(
 
 
 fun assistantChatMessage(content: String): ChatMessage {
-    val time = Instant.now().toEpochMilli()
     return ChatMessage(
-        time.toString(),
+        UUID.randomUUID().toString(),
         MessageType.ASSISTANT.value,
         content,
-        time,
+        Instant.now().toEpochMilli()
     )
 }
 
 fun Message.toChatMessage(): ChatMessage {
-    val time = Instant.now().toEpochMilli()
     return ChatMessage(
-        time.toString(),
+        UUID.randomUUID().toString(),
         messageType.value,
         content,
-        time
+        Instant.now().toEpochMilli()
     )
 }
 

@@ -19,7 +19,6 @@ import kotlin.text.isEmpty
  * @author chen
  * @since 2024-06-12
  */
-@Component
 class FileMessageStore(
     private val objectMapper: ObjectMapper,
     private val contextCount: Int = 10

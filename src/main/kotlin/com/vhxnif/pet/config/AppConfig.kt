@@ -2,6 +2,9 @@ package com.vhxnif.pet.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import com.vhxnif.pet.core.store.DuckDBClient
+import com.vhxnif.pet.core.store.DuckDBMessageStore
+import com.vhxnif.pet.core.store.IMessageStore
 import com.vhxnif.pet.util.osConfig
 import com.vhxnif.pet.util.petConfigDir
 import jakarta.annotation.PostConstruct
@@ -10,6 +13,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.FileSystemResource
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -53,4 +57,11 @@ class AppConfig(
             }
         }
     }
+
+
+    @Bean
+    fun duckDBClient() : DuckDBClient = DuckDBClient(petConfigDir() + File.separator + "pet.duckdb")
+
+    @Bean
+    fun duckDBMessageStore(duckDBClient: DuckDBClient) : IMessageStore = DuckDBMessageStore(duckDBClient)
 }
