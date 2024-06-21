@@ -40,7 +40,7 @@ class ChatCommand(
     override fun run() {
         when {
             exclusive?.file != null -> fileChat.chat(text, exclusive?.file!!)
-            else -> chat.say(text, exclusive?.coder ?: false)
+            else -> chat.say(text, exclusive?.coder == true)
         }.print()
     }
 

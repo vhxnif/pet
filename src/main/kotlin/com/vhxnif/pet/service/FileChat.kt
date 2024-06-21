@@ -22,7 +22,7 @@ class FileChat(
 
     fun chat(text: String, filePath: String): Flux<String> {
         return chatClient.call {
-            messages {
+            prompt {
                 user(userPrompt, "text" to text, "doc" to doc(filePath))
             }
         }

@@ -22,7 +22,7 @@ class ImproveWriting (
 
     fun improve(text: String) : Flux<String> {
         return chatClient.call {
-            messages {
+            prompt {
                 system(systemPrompt)
                 user(userPrompt, "text" to text)
             }

@@ -5,7 +5,6 @@ import org.springframework.ai.chat.messages.Message
 import org.springframework.ai.chat.messages.MessageType
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.ai.chat.messages.UserMessage
-import reactor.core.publisher.Flux
 import java.time.Instant
 
 /**
@@ -55,18 +54,18 @@ fun ChatMessage.toMessage(): Message {
 
 interface IMessageStore {
 
-    fun contextMessage() : Flux<ChatMessage>
+    fun contextMessage() : List<ChatMessage>
 
-    fun saveMessage(chatMessage: ChatMessage)
+    fun saveMessage(messages:Pair<ChatMessage, ChatMessage>)
 
 }
 
 class DefaultMessageStore : IMessageStore {
 
-    override fun contextMessage(): Flux<ChatMessage> {
-        return Flux.empty()
+    override fun contextMessage(): List<ChatMessage> {
+        return listOf()
     }
 
-    override fun saveMessage(chatMessage: ChatMessage) {}
-
+    override fun saveMessage(messages: Pair<ChatMessage, ChatMessage>) {
+    }
 }

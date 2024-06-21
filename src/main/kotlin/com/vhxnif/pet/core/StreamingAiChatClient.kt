@@ -2,8 +2,9 @@ package com.vhxnif.pet.core
 
 import com.vhxnif.pet.core.store.IMessageStore
 import com.vhxnif.pet.core.store.assistantChatMessage
+import com.vhxnif.pet.core.store.toChatMessage
+import com.vhxnif.pet.util.WaitTaskList
 import org.springframework.ai.chat.StreamingChatClient
-import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
 
@@ -19,18 +20,22 @@ class StreamingAiChatClient(
 ) : BaseAiClient(messageStore) {
 
 
-    fun call(f: BaseAiClient.() -> Prompt) : Flux<String> {
-        return streamingClient.stream(f()).map { it.result.output.content }
+    fun call(f: BaseAiClient.() -> PromptBuilder) : Flux<String> {
+        return streamingClient.stream(f().toPrompt()).map { it.result.output.content }
     }
 
-    fun contextCall(f: BaseAiClient.() -> Prompt) : Flux<String> {
+    fun contextCall(f: BaseAiClient.() -> PromptBuilder) : Flux<String> {
+        WaitTaskList.startTask()
+        val promptBuilder = f()
         val res = StringBuilder()
-        return streamingClient.stream(contextPrompt(f())).map { it.result.output.content }.doOnNext {
-           res.append(it)
+        return streamingClient.stream(contextPrompt(promptBuilder)).map { it.result.output.content }.doOnNext {
+            res.append(it)
         }.doFinally {
-           messageStore.saveMessage(assistantChatMessage(res.toString()))
+            messageStore.saveMessage (
+                promptBuilder.userMessage!!.toChatMessage() to assistantChatMessage(res.toString())
+            )
+            WaitTaskList.downTask()
         }
     }
-
 }
 

@@ -22,7 +22,7 @@ class Translate(
 
     fun translate(lang: String, text: String): Flux<String> {
         return client.call {
-            messages {
+            prompt {
                 system(systemPrompt)
                 user(userPrompt, "to" to lang, "text" to text)
             }

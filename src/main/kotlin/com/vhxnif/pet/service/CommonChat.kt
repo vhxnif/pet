@@ -29,10 +29,8 @@ class CommonChat(
                         if (coder) OpenAiChatOptions.Builder().withModel(it).build() else null
                     }
                 }
-                message {
-                    if(coder) system(systemPrompt) else chatCustomConfig.systemMessage()?.let { system(it) }
-                    user(text)
-                }
+                if (coder) system(systemPrompt) else chatCustomConfig.systemMessage()?.let { system(it) }
+                user(text)
             }
         }
     }

@@ -1,0 +1,21 @@
+package com.vhxnif.pet.util
+
+import java.io.File
+
+/**
+ *
+ * @author chen
+ * @since 2024-06-20
+ */
+
+
+fun osConfig () : String {
+    val os = System.getProperty("os.name")
+    return  if (os.startsWith("Windows")) {
+        System.getenv("APPDATA")
+    } else {
+        System.getenv("HOME") + File.separator + ".config"
+    }
+}
+
+fun petConfigDir() : String = osConfig() + File.separator + "pet"

@@ -2,12 +2,16 @@ package com.vhxnif.pet.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import com.vhxnif.pet.util.osConfig
+import com.vhxnif.pet.util.petConfigDir
 import jakarta.annotation.PostConstruct
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.FileSystemResource
+import java.nio.file.Files
+import java.nio.file.Paths
 
 /**
  *
@@ -20,9 +24,19 @@ class AppConfig(
     val objectMapper: ObjectMapper
 ) {
 
+
     @PostConstruct
-    fun objectMapperConfig() {
+    fun appConfig() {
         objectMapper.registerKotlinModule()
+        val osConfig = osConfig()
+        val path = Paths.get(osConfig)
+        if (!Files.exists(path)) {
+            error("os config dir is missing. $osConfig")
+        }
+        val petConfigPath = Paths.get(petConfigDir())
+        if (!Files.exists(petConfigPath)) {
+            Files.createDirectory(petConfigPath)
+        }
     }
 
     @Bean
@@ -39,6 +53,4 @@ class AppConfig(
             }
         }
     }
-
-
 }

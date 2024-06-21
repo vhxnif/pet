@@ -66,7 +66,7 @@ class TimeConversion(
 
     private fun getTimezone(region: String): ZoneId {
         val timezone = chatClient.call {
-            messages {
+            prompt {
                 system(systemPrompt)
                 user(userPrompt, "region" to region)
             }

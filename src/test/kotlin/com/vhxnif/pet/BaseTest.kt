@@ -31,7 +31,7 @@ open class BaseTest {
     }
 
     val messageStore = mock<FileMessageStore> {
-        on { contextMessage() } doReturn Flux.just(contextChatMessage)
+        on { contextMessage() } doReturn listOf(contextChatMessage)
     }
     val streamingChatClient = mock<StreamingChatClient> {
         on { stream(any<Prompt>()) } doReturn Flux.just(ChatResponse(listOf(Generation("success"))))
