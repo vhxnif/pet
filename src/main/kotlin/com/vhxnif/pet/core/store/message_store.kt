@@ -14,7 +14,18 @@ import java.util.UUID
  * @since 2024-06-12
  */
 
+data class Chat (
+    val id: String,
+    val name: String,
+    val createTime: Long,
+    val selectTime: Long,
+)
 
+data class ChatMessageMapping(
+    val id: String,
+    val chatId: String,
+    val chatMessageId: String,
+)
 data class ChatMessage(
     val id: String,
     val type: String,
@@ -53,18 +64,14 @@ fun ChatMessage.toMessage(): Message {
 
 interface IMessageStore {
 
+    fun selectOrNewChat(name: String)
+
+    fun delChat(name: String)
+
+    fun chats() : List<Chat>
+
     fun contextMessage() : List<ChatMessage>
 
-    fun saveMessage(messages:Pair<ChatMessage, ChatMessage>)
+    fun saveMessage(f: () -> Pair<ChatMessage, ChatMessage>)
 
-}
-
-class DefaultMessageStore : IMessageStore {
-
-    override fun contextMessage(): List<ChatMessage> {
-        return listOf()
-    }
-
-    override fun saveMessage(messages: Pair<ChatMessage, ChatMessage>) {
-    }
 }

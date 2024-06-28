@@ -1,5 +1,6 @@
 package com.vhxnif.pet.core
 
+import com.vhxnif.pet.core.store.ChatMessage
 import com.vhxnif.pet.core.store.IMessageStore
 import com.vhxnif.pet.core.store.toMessage
 import org.springframework.ai.chat.messages.Message
@@ -117,5 +118,16 @@ open class BaseAiClient(
     fun contextPrompt(pt: PromptBuilder): Prompt {
         return pt.toPrompt(messageStore.contextMessage().map{ it.toMessage() })
     }
+
+    fun contextMessage(): List<ChatMessage> = messageStore.contextMessage()
+
+
+    fun selectOrNewChat(name: String) {
+        messageStore.selectOrNewChat(name)
+    }
+
+    fun chats() = messageStore.chats()
+
+    fun delChat(name: String) = messageStore.delChat(name)
 
 }

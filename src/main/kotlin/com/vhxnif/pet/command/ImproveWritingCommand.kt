@@ -13,7 +13,7 @@ import picocli.CommandLine.Parameters
  */
 @Sword
 @Command(
-    name = "improve writing",
+    name = "improve-writing",
     aliases = ["iw"],
     description = ["Improve Writing."],
     version = ["0.1.0"]

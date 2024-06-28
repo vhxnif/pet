@@ -6,7 +6,7 @@ import com.vhxnif.pet.core.StreamingAiChatClient
 import org.mockito.kotlin.*
 import org.springframework.ai.chat.ChatClient
 import com.vhxnif.pet.core.store.ChatMessage
-import com.vhxnif.pet.core.store.FileMessageStore
+import com.vhxnif.pet.core.store.DuckDBMessageStore
 import org.springframework.ai.chat.ChatResponse
 import org.springframework.ai.chat.Generation
 import org.springframework.ai.chat.StreamingChatClient
@@ -30,7 +30,7 @@ open class BaseTest {
         on { type } doReturn MessageType.USER.value
     }
 
-    val messageStore = mock<FileMessageStore> {
+    val messageStore = mock<DuckDBMessageStore> {
         on { contextMessage() } doReturn listOf(contextChatMessage)
     }
     val streamingChatClient = mock<StreamingChatClient> {

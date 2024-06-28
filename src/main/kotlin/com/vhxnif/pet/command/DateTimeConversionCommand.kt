@@ -10,7 +10,7 @@ import picocli.CommandLine.*
  * @since 2024-05-31
  */
 @Sword
-@Command(name = "time convert", aliases = ["tc"], description = ["Convert dates and timestamps between each other."])
+@Command(name = "time-convert", aliases = ["tc"], description = ["Convert dates and timestamps between each other."])
 class DateTimeConversionCommand(
     private val timeConversion: TimeConversion
 ) : Runnable {

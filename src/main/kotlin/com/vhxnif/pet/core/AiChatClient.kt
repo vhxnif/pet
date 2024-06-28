@@ -24,9 +24,9 @@ class AiChatClient(
     fun contextCall(f: BaseAiClient.() -> PromptBuilder) : String {
         val promptBuilder = f()
         return client.call(contextPrompt(promptBuilder)).result.output.content.apply {
-            messageStore.saveMessage(
+            messageStore.saveMessage{
                 promptBuilder.userMessage!!.toChatMessage() to assistantChatMessage(this)
-            )
+            }
         }
     }
 

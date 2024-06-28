@@ -19,12 +19,15 @@ import picocli.CommandLine.*
     version = ["0.1.0"],
 )
 class ChatCommand(
-    private val chat: CommonChat,
+    private val commonChat: CommonChat,
     private val fileChat: FileChat,
 ) : Runnable {
 
     @Parameters
     lateinit var text: String
+
+    @Option(names = ["-ct", "--chat"], description = ["Select Or Create a Chat."])
+    var chat: String? = null
 
     @ArgGroup(exclusive = true)
     var exclusive: Exclusive? = null
@@ -38,9 +41,12 @@ class ChatCommand(
     }
 
     override fun run() {
+        if (chat != null) {
+            commonChat.selectOrNewChat(chat!!)
+        }
         when {
             exclusive?.file != null -> fileChat.chat(text, exclusive?.file!!)
-            else -> chat.say(text, exclusive?.coder == true)
+            else -> commonChat.say(text, exclusive?.coder == true)
         }.print()
     }
 

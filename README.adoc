@@ -43,32 +43,40 @@ pet
   -V, --version   Print version information and exit.
 Commands:
   chat, ct, ask        A chat cli tool.
+  chat-config, cf      About Chat Command config.
   translate, ts        AI Translation Tool
-  chat config, cf      About Chat Command config.
-  time convert, tc     Convert dates and timestamps between each other.
-  improve writing, iw  Improve Writing.
+  github-trending, gt  Github Trending.
+  time-convert, tc     Convert dates and timestamps between each other.
+  improve-writing, iw  Improve Writing.
 ----
 
 .pet chat
 [, bash]
 ----
-Usage: pet chat [-chV] [-f=<file>] <text>
+Usage: pet chat [-hV] [-ct=<chat>] [-f=<file> | -c] <text>
 A chat cli tool.
       <text>
-  -c, --coder         The coder model that chat using.
-  -f, --file=<file>   The file content that chat based on.
-  -h, --help          Show this help message and exit.
-  -V, --version       Print version information and exit.
+  -c, --coder              The model that uses chat coding.
+      -ct, --chat=<chat>   Select Or Create a Chat.
+  -f, --file=<file>        The file content that chat based on.
+  -h, --help               Show this help message and exit.
+  -V, --version            Print version information and exit.
 ----
 
-.pet chat config
+.pet chat-config
 [,bash]
 ----
-Usage: pet chat config [-hV] [-sp] [-rsp=<systemPromptPath>
-]
+Usage: pet chat-config [-hV] (-sp | -cs | -sc=<selectChat> | -dc=<delChat> |
+                       -ct)
 About Chat Command config.
+      -cs, --chats           The chats used.
+      -ct, --context         The context chat messages.
+      -dc, --del-chat=<delChat>
+                             Delete  by chat No.
   -h, --help                 Show this help message and exit.
-      -sp, --system-prompt   The currently used system prompt.
+      -sc, --select-chat=<selectChat>
+                             Select by chat No.
+      -sp, --system-prompt   The system prompt currently in use.
   -V, --version              Print version information and exit.
 ----
 
@@ -87,11 +95,10 @@ AI Translation Tool
   -V, --version           Print version information and exit.
 ----
 
-.pet time convert
+.pet time-convert
 [,bash]
 ----
-Usage: pet time convert [-hV] [-z=<timezone>] (-s=<time
-stamp> | -t=<datetime>)
+Usage: pet time-convert [-hV] [-z=<timezone>] (-s=<timestamp> | -t=<datetime>)
 Convert dates and timestamps to and from each other.
   -h, --help      Show this help message and exit.
   -s, --timestamp=<timestamp>
@@ -103,14 +110,26 @@ Convert dates and timestamps to and from each other.
                   timezone, eg. Asia/Shanghai
 ----
 
-.pet improve writing
+.pet improve-writing
 [,bash]
 ----
-Usage: pet improve writing [-hV] <text>
+Usage: pet improve-writing [-hV] <text>
 Improve Writing.
       <text>
   -h, --help      Show this help message and exit.
   -V, --version   Print version information and exit.
+----
+
+.pet
+[,bash]
+----
+Usage: pet github-trending [-hV] [-l=<language>] [-s=<since>]
+Github Trending.
+  -h, --help            Show this help message and exit.
+  -l, --language=<language>
+                        eg. kotlin, javascript, java...
+  -s, --since=<since>   eg. DAILY WEEKLY MONTHLY
+  -V, --version         Print version information and exit.
 ----
 
 == Build

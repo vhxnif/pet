@@ -31,9 +31,9 @@ class StreamingAiChatClient(
         return streamingClient.stream(contextPrompt(promptBuilder)).map { it.result.output.content }.doOnNext {
             res.append(it)
         }.doFinally {
-            messageStore.saveMessage (
+            messageStore.saveMessage {
                 promptBuilder.userMessage!!.toChatMessage() to assistantChatMessage(res.toString())
-            )
+            }
             WaitTaskList.downTask()
         }
     }

@@ -39,4 +39,12 @@ class CommonChat(
         return chatCustomConfig.systemMessage()?.content
     }
 
+    fun chats() = chatClient.chats()
+
+    fun selectOrNewChat(name: String) = chatClient.selectOrNewChat(name)
+
+    fun delChat(name: String) = chatClient.delChat(name)
+
+    fun contextChatMessage() = chatClient.contextMessage()
+
 }
