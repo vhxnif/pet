@@ -120,7 +120,7 @@ Improve Writing.
   -V, --version   Print version information and exit.
 ----
 
-.pet
+.pet github-trending
 [,bash]
 ----
 Usage: pet github-trending [-hV] [-l=<language>] [-s=<since>]
