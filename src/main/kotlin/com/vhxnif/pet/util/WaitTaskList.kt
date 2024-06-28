@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-06-21
  */
 object WaitTaskList {

@@ -10,7 +10,7 @@ import java.time.Duration
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-06-21
  */
 @Component

@@ -13,7 +13,7 @@ import org.springframework.ai.chat.prompt.PromptTemplate
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-06-07
  */
 class TimeConversionTest : BaseTest() {

@@ -4,7 +4,7 @@ import reactor.core.publisher.Flux
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-06-10
  */
 class ProcessBar(

@@ -5,7 +5,7 @@ import org.springframework.core.io.Resource
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-05-28
  */
 class ChatCustomConfig {

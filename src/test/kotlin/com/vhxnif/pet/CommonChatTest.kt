@@ -10,7 +10,7 @@ import org.springframework.ai.openai.OpenAiChatOptions
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-06-07
  */
 class CommonChatTest : BaseTest() {

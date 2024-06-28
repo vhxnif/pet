@@ -4,7 +4,7 @@ import org.springframework.ai.transformer.splitter.TextSplitter
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-06-03
  */
 

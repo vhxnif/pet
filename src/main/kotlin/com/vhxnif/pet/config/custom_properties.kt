@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-05-29
  */
 @ConfigurationProperties(prefix = "custom.config")

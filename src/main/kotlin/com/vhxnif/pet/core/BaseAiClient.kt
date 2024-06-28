@@ -12,7 +12,7 @@ import org.springframework.core.io.Resource
 
 /**
  *
- * @author chen
+ * @author vhxnif
  * @since 2024-06-13
  */
 open class BaseAiClient(
