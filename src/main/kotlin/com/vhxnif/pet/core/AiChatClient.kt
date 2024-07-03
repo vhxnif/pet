@@ -3,7 +3,7 @@ package com.vhxnif.pet.core
 import com.vhxnif.pet.core.store.IMessageStore
 import com.vhxnif.pet.core.store.assistantChatMessage
 import com.vhxnif.pet.core.store.toChatMessage
-import org.springframework.ai.chat.ChatClient
+import org.springframework.ai.chat.model.ChatModel
 import org.springframework.stereotype.Component
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
  */
 @Component
 class AiChatClient(
-    private val client: ChatClient,
+    private val client: ChatModel,
     override val messageStore: IMessageStore,
 ) : BaseAiClient(messageStore) {
 

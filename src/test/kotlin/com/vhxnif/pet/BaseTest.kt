@@ -3,14 +3,14 @@ package com.vhxnif.pet
 import com.vhxnif.pet.config.ChatCustomConfig
 import com.vhxnif.pet.core.AiChatClient
 import com.vhxnif.pet.core.StreamingAiChatClient
-import org.mockito.kotlin.*
-import org.springframework.ai.chat.ChatClient
 import com.vhxnif.pet.core.store.ChatMessage
 import com.vhxnif.pet.core.store.DuckDBMessageStore
-import org.springframework.ai.chat.ChatResponse
-import org.springframework.ai.chat.Generation
-import org.springframework.ai.chat.StreamingChatClient
+import org.mockito.kotlin.*
 import org.springframework.ai.chat.messages.MessageType
+import org.springframework.ai.chat.model.ChatModel
+import org.springframework.ai.chat.model.ChatResponse
+import org.springframework.ai.chat.model.Generation
+import org.springframework.ai.chat.model.StreamingChatModel
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.core.io.Resource
@@ -33,11 +33,11 @@ open class BaseTest {
     val messageStore = mock<DuckDBMessageStore> {
         on { contextMessage() } doReturn listOf(contextChatMessage)
     }
-    val streamingChatClient = mock<StreamingChatClient> {
+    val streamingChatClient = mock<StreamingChatModel> {
         on { stream(any<Prompt>()) } doReturn Flux.just(ChatResponse(listOf(Generation("success"))))
     }
 
-    val chatClient = mock<ChatClient> {
+    val chatClient = mock<ChatModel> {
         on { call(any<Prompt>()) } doReturn ChatResponse(listOf(Generation("success")))
     }
 

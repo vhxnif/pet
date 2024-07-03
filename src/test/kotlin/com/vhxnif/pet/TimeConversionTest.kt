@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.whenever
-import org.springframework.ai.chat.ChatResponse
-import org.springframework.ai.chat.Generation
 import org.springframework.ai.chat.messages.SystemMessage
+import org.springframework.ai.chat.model.ChatResponse
+import org.springframework.ai.chat.model.Generation
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.ai.chat.prompt.PromptTemplate
 

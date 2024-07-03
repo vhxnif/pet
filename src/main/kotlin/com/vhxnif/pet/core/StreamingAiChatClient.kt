@@ -4,7 +4,7 @@ import com.vhxnif.pet.core.store.IMessageStore
 import com.vhxnif.pet.core.store.assistantChatMessage
 import com.vhxnif.pet.core.store.toChatMessage
 import com.vhxnif.pet.util.WaitTaskList
-import org.springframework.ai.chat.StreamingChatClient
+import org.springframework.ai.chat.model.StreamingChatModel
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
 
@@ -15,7 +15,7 @@ import reactor.core.publisher.Flux
  */
 @Component
 class StreamingAiChatClient(
-    private val streamingClient: StreamingChatClient,
+    private val streamingClient: StreamingChatModel,
     override val messageStore: IMessageStore
 ) : BaseAiClient(messageStore) {
 
