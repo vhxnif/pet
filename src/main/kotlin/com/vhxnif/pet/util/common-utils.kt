@@ -19,3 +19,7 @@ fun osConfig () : String {
 }
 
 fun petConfigDir() : String = osConfig() + File.separator + "pet"
+
+fun String.escape() : String {
+    return replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t")
+}

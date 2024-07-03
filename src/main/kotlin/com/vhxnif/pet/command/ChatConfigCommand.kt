@@ -2,6 +2,7 @@ package com.vhxnif.pet.command
 
 import com.vhxnif.pet.config.annotation.Sword
 import com.vhxnif.pet.service.CommonChat
+import com.vhxnif.pet.util.escape
 import picocli.CommandLine.ArgGroup
 import picocli.CommandLine.Command
 import picocli.CommandLine.Help.Ansi
@@ -105,7 +106,7 @@ class ChatConfigCommand(
             content
         } else {
             "${content.substring(0, limit)}..."
-        }
+        }.escape()
     }
 
     private fun idxToName(idx: Int): String? {
