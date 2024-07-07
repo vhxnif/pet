@@ -17,7 +17,7 @@ import reactor.core.publisher.Flux
  */
 @Sword
 @Command(
-    name = "translate", aliases = ["ts"], description = ["AI Translation Tool"], version = ["0.1.0"]
+    name = "translate", aliases = ["ts"], description = ["AI Translation Tool."], version = ["0.1.0"]
 )
 class TranslateCommand(
     private val translate: Translate
