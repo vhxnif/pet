@@ -37,5 +37,13 @@ class StreamingAiChatClient(
             WaitTaskList.downTask()
         }
     }
+
+    fun call(withContext: Boolean, f: BaseAiClient.() -> PromptBuilder): Flux<String> {
+        return if(withContext) {
+            contextCall(f)
+        } else {
+            call(f)
+        }
+    }
 }
 

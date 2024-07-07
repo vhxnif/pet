@@ -28,9 +28,11 @@ class ChatCommand(
 
     @Option(names = ["-ct", "--chat"], description = ["Select Or Create a Chat."])
     var chat: String? = null
+    @Option(names = ["-w", "--with-context"], description = ["Use context."])
+    var withContext : Boolean = false
 
     @ArgGroup(exclusive = true)
-    var exclusive: Exclusive? = null
+    var exclusive: Exclusive = Exclusive()
 
     class Exclusive {
         @Option(names = ["-f", "--file"], description = ["The file content that chat based on."])
@@ -45,8 +47,8 @@ class ChatCommand(
             commonChat.selectOrNewChat(chat!!)
         }
         when {
-            exclusive?.file != null -> fileChat.chat(text, exclusive?.file!!)
-            else -> commonChat.say(text, exclusive?.coder == true)
+            exclusive.file != null -> fileChat.chat(text, exclusive.file!!)
+            else -> commonChat.say(text, exclusive.coder, withContext)
         }.print()
     }
 

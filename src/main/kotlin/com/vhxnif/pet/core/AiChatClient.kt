@@ -30,4 +30,12 @@ class AiChatClient(
         }
     }
 
+    fun call(withContext: Boolean, f: BaseAiClient.() -> PromptBuilder) : String {
+        return if(withContext) {
+            contextCall(f)
+        } else {
+            call(f)
+        }
+    }
+
 }

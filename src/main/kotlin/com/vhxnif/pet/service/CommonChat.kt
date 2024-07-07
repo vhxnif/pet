@@ -21,8 +21,8 @@ class CommonChat(
     private val systemPrompt: Resource
 ) {
 
-    fun say(text: String, coder: Boolean = false): Flux<String> {
-        return chatClient.contextCall {
+    fun say(text: String, coder: Boolean = false, withContext: Boolean = false): Flux<String> {
+        return chatClient.call(withContext){
             prompt {
                 option {
                     chatCustomConfig.coderModel()?.let {

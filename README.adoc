@@ -53,7 +53,7 @@ Commands:
 .pet chat
 [, bash]
 ----
-Usage: pet chat [-hV] [-ct=<chat>] [-f=<file> | -c] <text>
+Usage: pet chat [-hVw] [-ct=<chat>] [-f=<file> | -c] <text>
 A chat cli tool.
       <text>
   -c, --coder              The model that uses chat coding.
@@ -61,6 +61,7 @@ A chat cli tool.
   -f, --file=<file>        The file content that chat based on.
   -h, --help               Show this help message and exit.
   -V, --version            Print version information and exit.
+  -w, --with-context       Use context.
 ----
 
 .pet chat-config

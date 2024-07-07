@@ -25,13 +25,13 @@ class CommonChatTest : BaseTest() {
 
     @Test
     fun test_common_chat_without_custom_config() = commonChat {
-        it.say(text)
+        it.say(text, false, true)
         vryStreamingPrompt { Prompt(listOf(UserMessage(context), UserMessage(text))) }
     }
 
     @Test
     fun test_coding_common_chat_without_custom_config() = commonChat {
-        it.say(text, true)
+        it.say(text, true, true)
         vryStreamingPrompt { Prompt(listOf(SystemMessage(systemPrompt),UserMessage(context), UserMessage(text))) }
     }
 
@@ -41,7 +41,7 @@ class CommonChatTest : BaseTest() {
         val coderModel = "coder_model"
         whenever(chatCustomConfig.systemMessage()).thenReturn(systemMessage)
         whenever(chatCustomConfig.coderModel()).thenReturn(coderModel)
-        it.say(text, true)
+        it.say(text, true, true)
         vryStreamingPrompt {
             Prompt(
                 listOf(
