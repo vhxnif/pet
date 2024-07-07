@@ -134,5 +134,5 @@ Github Trending.
 
 == Build
 * maven `mvn clean package`
-* https://docs.spring.io/spring-boot/reference/native-image/index.html[`GraalVM Native`]
+* https://docs.spring.io/spring-boot/docs/3.2.5/reference/html/native-image.html#native-image[`GraalVM Native`]
 
