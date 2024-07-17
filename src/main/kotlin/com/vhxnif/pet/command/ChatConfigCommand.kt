@@ -2,10 +2,13 @@ package com.vhxnif.pet.command
 
 import com.vhxnif.pet.config.annotation.Sword
 import com.vhxnif.pet.service.CommonChat
+import com.vhxnif.pet.util.PreDefinedColor.*
+import com.vhxnif.pet.util.PreDefinedStyle.*
+import com.vhxnif.pet.util.ansi
 import com.vhxnif.pet.util.escape
+import com.vhxnif.pet.util.println
 import picocli.CommandLine.ArgGroup
 import picocli.CommandLine.Command
-import picocli.CommandLine.Help.Ansi
 import picocli.CommandLine.Option
 import java.time.Instant
 import java.time.ZoneId
@@ -58,13 +61,13 @@ class ChatConfigCommand(
             exclusive.selectChat != null -> selectChat(exclusive.selectChat!!)
             exclusive.delChat != null -> delChat(exclusive.delChat!!)
             exclusive.context -> context()
-            else -> println(Ansi.AUTO.string("@|red Option does not match.|@"))
+            else -> ansi { "Option does not match." use RED }.println()
         }
     }
 
     private fun chats() {
         commonChat.chats().forEachIndexed { idx, it ->
-            println(Ansi.AUTO.string("${if (idx == 0) "[@|cyan *|@]" else "[@|magenta $idx|@]"} @|bold,yellow ${it.name}|@"))
+            "${if (idx == 0) ansi { "*" use CYAN } else ansi { idx.toString() use MAGENTA }} ${ansi { it.name use BOLD use YELLOW }}".println()
         }
     }
 
@@ -84,13 +87,14 @@ class ChatConfigCommand(
 
     private fun context() {
         commonChat.contextChatMessage().forEach {
-            println(
-                Ansi.AUTO.string("""
-                    [@|yellow ${it.type}|@] [@|magenta ${time(it.actionTime)}|@]
-                    @|blue ${fmtContent(it.content)}|@
-                """.trimIndent())
-            )
-            println()
+            val type = ansi { it.type use BOLD use YELLOW }
+            val actionTime = ansi { time(it.actionTime) use UNDERLINE use BOLD use MAGENTA }
+            val content = ansi { fmtContent(it.content) use BLUE }
+            """
+                $type $actionTime
+                $content
+                
+            """.trimIndent().println()
         }
     }
 
@@ -114,7 +118,7 @@ class ChatConfigCommand(
         return if (idx <= chats.size - 1) {
             chats[idx].name
         } else {
-            println(Ansi.AUTO.string("@|red Chat No.$idx Missing.|@"))
+            ansi { "Chat No.$idx Missing." use RED }.println()
             null
         }
     }

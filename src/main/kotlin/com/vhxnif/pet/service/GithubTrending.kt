@@ -24,7 +24,7 @@ class GithubTrending {
         val desc: String,
         val star: String,
         val fork: String,
-        val todayStart: String,
+        val todayStar: String,
         val language: String?,
         var transDesc: String = ""
     )

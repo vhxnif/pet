@@ -1,5 +1,6 @@
 package com.vhxnif.pet.command
 
+import com.vhxnif.pet.util.println
 import org.springframework.stereotype.Component
 import picocli.CommandLine
 import picocli.CommandLine.Command
@@ -19,6 +20,6 @@ import picocli.CommandLine.Command
 )
 class AppCommand : Runnable {
     override fun run() {
-        println("=^..^=")
+        "=^..^=".println()
     }
 }

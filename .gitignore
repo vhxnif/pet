@@ -6,6 +6,7 @@
 *.iml
 out
 gen
+.DS_Store
 ### Java template
 # Compiled class file
 *.class

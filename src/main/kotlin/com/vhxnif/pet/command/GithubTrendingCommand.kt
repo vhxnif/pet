@@ -3,10 +3,16 @@ package com.vhxnif.pet.command
 import com.vhxnif.pet.config.annotation.Sword
 import com.vhxnif.pet.service.GithubTrending
 import com.vhxnif.pet.service.GithubTrending.Since
+import com.vhxnif.pet.util.ansi
+import com.vhxnif.pet.util.PreDefinedColor.*
+import com.vhxnif.pet.util.PreDefinedStyle.*
+import com.vhxnif.pet.util.WaitTaskList
+import com.vhxnif.pet.util.println
 import groovyjarjarpicocli.CommandLine.Help.Ansi
 import kotlinx.coroutines.*
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
+import java.util.concurrent.CompletableFuture
 
 /**
  *
@@ -43,19 +49,31 @@ class GithubTrendingCommand(
      * reset                cyan
      *                      white
      */
-    override fun run(){
-         githubTrending.trending(since, language).forEach {
-            val str = Ansi.AUTO.string(
+    override fun run() {
+        githubTrending.trending(since, language).forEach {
+            WaitTaskList.startTask()
+            CompletableFuture.runAsync {
+                val name = ansi { it.name use BOLD use YELLOW }
+                val url = ansi { "https://github.com/${it.name}" use UNDERLINE use BOLD use BLUE }
+                val lang = ansi { (it.language ?: "") use GREEN }
+                val todayStar = ansi { it.todayStar use ITALIC use RED }
+                val starTag = ansi { "star" use CYAN }
+                val star = ansi { it.star use RED }
+                val forkTag = ansi { "fork" use CYAN }
+                val fork = ansi { it.fork use RED }
+                val desc = ansi { it.desc use MAGENTA }
+                val transDesc = ansi { it.transDesc use BLUE }
                 """
-                   [@|bold,yellow ${it.name}|@] 
-                   @|blue,underline https://github.com/${it.name}|@
-                   [@|green ${it.language}|@] @|red,italic ${it.todayStart}|@
-                   [@|cyan star|@]: @|red ${it.star}|@ [@|cyan fork|@]: @|red ${it.fork}|@ 
-                   @|magenta ${it.desc}|@
-                   @|blue ${it.transDesc}|@
-                """.trimIndent()
-            )
-            println(str)
+                   [$name] 
+                   $url
+                   [$lang] $todayStar
+                   [$starTag]: $star [$forkTag]: $fork 
+                   $desc
+                   $transDesc
+                """.trimIndent().println()
+                WaitTaskList.downTask()
+            }
+
         }
     }
 }
